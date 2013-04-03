@@ -82,6 +82,9 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 
 - (void)commonSetup {
     CGRect frame = self.frame;
+    frame.origin.y += HEIGHT_PADDING;
+    frame.size.height -= HEIGHT_PADDING * 2;
+    
     [self setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]];
     
     _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, frame.size.height)];
@@ -96,8 +99,6 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
     
     _tokens = [[NSMutableArray alloc] init];
     
-    frame.origin.y += HEIGHT_PADDING;
-    frame.size.height -= HEIGHT_PADDING * 2;
     _textField = [[JSBackspaceReportingTextField alloc] initWithFrame:frame];
     [_textField setDelegate:self];
     [_textField setBorderStyle:UITextBorderStyleNone];
@@ -246,9 +247,10 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 {
 	CGRect currentRect = CGRectZero;
 	
-	[_label sizeToFit];
-	[_label setFrame:CGRectMake(WIDTH_PADDING, HEIGHT_PADDING, [_label frame].size.width, [_label frame].size.height + HEIGHT_PADDING)];
-	
+    CGFloat h = _label.frame.size.height;
+    [_label sizeToFit];
+    [_label setFrame:CGRectMake(WIDTH_PADDING, HEIGHT_PADDING, [_label frame].size.width, h)];
+    
 	currentRect.origin.x = _label.frame.origin.x;
 	if (_label.frame.size.width > 0) {
 		currentRect.origin.x += _label.frame.size.width + WIDTH_PADDING;
