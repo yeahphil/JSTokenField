@@ -247,9 +247,8 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 {
 	CGRect currentRect = CGRectZero;
 	
-    CGFloat h = _label.frame.size.height;
     [_label sizeToFit];
-    [_label setFrame:CGRectMake(WIDTH_PADDING, HEIGHT_PADDING, [_label frame].size.width, h)];
+    [_label setFrame:CGRectMake(WIDTH_PADDING, HEIGHT_PADDING, [_label frame].size.width, kJSTokenButtonHeight)];
     
 	currentRect.origin.x = _label.frame.origin.x;
 	if (_label.frame.size.width > 0) {
@@ -307,10 +306,13 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 	CGFloat textFieldMidY = CGRectGetMidY(textFieldFrame);
 	for (UIButton *token in lastLineTokens) {
 		// Center the last line's tokens vertically with the text field
-		CGPoint tokenCenter = token.center;
-		tokenCenter.y = textFieldMidY;
-		token.center = tokenCenter;
+		token.center = (CGPoint){token.center.x, textFieldMidY};
 	}
+    
+    // if there's only one line, must also center the label
+    if ([_tokens isEqual:lastLineTokens]) {
+        _label.center = (CGPoint){_label.center.x, textFieldMidY};
+    }
 	
 	if (self.layer.presentationLayer == nil) {
 		[self setFrame:selfFrame];

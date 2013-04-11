@@ -29,6 +29,8 @@
 #import <UIKit/UIKit.h>
 @class JSTokenField;
 
+#define kJSTokenButtonHeight 25.0
+
 @interface JSTokenButton : UIButton <UIKeyInput> {
 
 	BOOL _toggled;

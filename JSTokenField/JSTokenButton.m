@@ -54,7 +54,7 @@
 	[button sizeToFit];
 	CGRect frame = [button frame];
 	frame.size.width += 20;
-	frame.size.height = 25;
+	frame.size.height = kJSTokenButtonHeight;
 	[button setFrame:frame];
 	
 	[button setToggled:NO];
