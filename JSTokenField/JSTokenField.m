@@ -413,11 +413,6 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
         [self.delegate tokenFieldDidEndEditing:self];
         return;
     }
-    else if ([[textField text] length] > 1)
-    {
-        [self addTokenWithTitle:[textField text] representedObject:[textField text]];
-        [textField setText:nil];
-    }
 }
 
 @end
