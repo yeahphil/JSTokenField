@@ -112,6 +112,8 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
     [self addSubview:_textField];
     
     [self.textField addTarget:self action:@selector(textFieldWasUpdated:) forControlEvents:UIControlEventEditingChanged];
+    
+    self.minTextFieldWidth = 60.0;
 }
 
 - (void)dealloc
@@ -286,7 +288,7 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 	
 	textFieldFrame.origin = currentRect.origin;
 	
-	if ((self.frame.size.width - textFieldFrame.origin.x) >= 60)
+	if ((self.frame.size.width - textFieldFrame.origin.x) >= self.minTextFieldWidth)
 	{
 		textFieldFrame.size.width = self.frame.size.width - textFieldFrame.origin.x;
 	}

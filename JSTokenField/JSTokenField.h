@@ -54,6 +54,8 @@ extern NSString *const JSDeletedTokenKey;
 @property (nonatomic, readonly, copy) NSMutableArray *tokens;
 @property (nonatomic, assign) id <JSTokenFieldDelegate> delegate;
 
+@property (nonatomic, assign) CGFloat minTextFieldWidth;
+
 - (void)addTokenWithTitle:(NSString *)string representedObject:(id)obj;
 - (void)removeTokenForString:(NSString *)string;
 - (void)removeTokenWithRepresentedObject:(id)representedObject;
