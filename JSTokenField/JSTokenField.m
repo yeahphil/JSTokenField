@@ -119,10 +119,28 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 - (void)dealloc
 {
 	[_textField release], _textField = nil;
+    [_placeholder release], _placeholder = nil;
 	[_label release], _label = nil;
 	[_tokens release], _tokens = nil;
 	
 	[super dealloc];
+}
+
+- (void)setPlaceholder:(NSString *)placeholder
+{
+    NSString *old = _placeholder;
+    _placeholder = [placeholder copy];
+    [old release];
+    [self updatePlaceholder];
+}
+
+- (void)updatePlaceholder
+{
+    if (_tokens.count > 0) {
+        self.textField.placeholder = nil;
+    } else {
+        self.textField.placeholder = self.placeholder;
+    }
 }
 
 
@@ -135,6 +153,8 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 		JSTokenButton *token = [self tokenWithString:aString representedObject:obj];
         token.parentField = self;
 		[_tokens addObject:token];
+        
+        [self updatePlaceholder];
 		
 		if ([self.delegate respondsToSelector:@selector(tokenField:didAddToken:representedObject:)])
 		{
@@ -170,6 +190,7 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 		}
 	}
 	
+    [self updatePlaceholder];
 	[self setNeedsLayout];
 }
 
@@ -215,6 +236,8 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 			
 			[_deletedToken removeFromSuperview];
 			[_tokens removeObject:_deletedToken];
+            
+            [self updatePlaceholder];
 			
 			if ([self.delegate respondsToSelector:@selector(tokenField:didRemove:representedObject:)])
 			{
